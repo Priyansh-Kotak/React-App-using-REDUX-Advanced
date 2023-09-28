@@ -12,7 +12,6 @@ import { hideCounterActions } from "../Store/HideCounterSlice";
 
 export default function NavbarWithDropdown() {
   const auth = useSelector((state) => state.auth.isAuthentication);
-  const counter = useSelector((state) => state.counter.counter);
   const { logout } = useAuth0();
   const { loginWithRedirect, isAuthenticated, user } = useAuth0();
 

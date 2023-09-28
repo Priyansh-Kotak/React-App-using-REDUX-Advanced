@@ -1,12 +1,31 @@
-import { useState } from "react";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
+import { useEffect } from "react";
 import Header from "./Component/Header";
 import "./App.css";
 import CartBody from "./Component/Cart/CartBody";
+import { useDispatch, useSelector } from "react-redux";
+import { sendCartData, fetchCartData } from "./Store/CartActions";
+
+let isInitial = true;
 
 function App() {
-  const [count, setCount] = useState(0);
+  const cart = useSelector((state) => state.cart);
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(fetchCartData());
+  }, [dispatch]);
+
+  useEffect(() => {
+    if (isInitial) {
+      isInitial = false;
+      return;
+    }
+
+    if (cart.changed) {
+      dispatch(sendCartData(cart));
+    }
+  });
 
   return (
     <>
